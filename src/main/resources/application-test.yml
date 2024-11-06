@@ -2,12 +2,12 @@ spring:
   application:
     name: AiDevs3
 tasks:
-  baseUrl: ${AIDEVS_TASKS_URL}
-  apiKey: ${AIDEVS_API_KEY}
+  baseUrl: https://mock.com
+  apiKey: abc
 langchain4j:
   open-ai:
     chat-model:
-      api-key: ${OPENAI_API_KEY}
+      api-key: abc
       model-name: gpt-4o-mini
       log-requests: true
       log-responses: true
