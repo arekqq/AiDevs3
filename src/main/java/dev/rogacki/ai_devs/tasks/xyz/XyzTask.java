@@ -15,7 +15,7 @@ import org.springframework.web.client.RestClient;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class Task implements Runnable {
+public class XyzTask implements Runnable {
 
 
     @Value("${XYZ_TASK_URL}")
@@ -33,7 +33,7 @@ public class Task implements Runnable {
         Element paragraph = doc.getElementById("human-question");
         String question = paragraph.childNodes().getLast().toString();
         log.info(question);
-        String response = assistant.chat(question);
+        String response = assistant.answerWithNumbers(question);
         log.info(response);
         String form = "username=tester&password=574e112a&answer=" + response;
         ResponseEntity<String> entity = xyzRestClient.post()
