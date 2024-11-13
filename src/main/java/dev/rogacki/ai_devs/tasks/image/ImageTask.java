@@ -37,10 +37,12 @@ public class ImageTask implements Runnable {
     @Override
     public void run() {
 
-        String imageDescription = RestClient.builder().baseUrl(imageDescriptionUrl).build()
+        ImageDescriptionResponse imageDescription = RestClient.builder().baseUrl(imageDescriptionUrl).build()
             .get()
             .retrieve()
-            .body(String.class);
+            .body(ImageDescriptionResponse.class);
+        log.info(imageDescription.description());
+
         ImageModel model = OpenAiImageModel.builder()
             .apiKey(openAiApiKey)
             .modelName(DALL_E_3)
@@ -48,8 +50,7 @@ public class ImageTask implements Runnable {
             .logResponses(true)
             .build();
 
-        Response<Image> response = model.generate("Generate image based on this description: " + imageDescription);
-        log.info(imageDescription);
+        Response<Image> response = model.generate("Generate image based on this description: " + imageDescription.description());
 
         URI generatedImageUrl = response.content().url();
         log.info(generatedImageUrl.toString());
