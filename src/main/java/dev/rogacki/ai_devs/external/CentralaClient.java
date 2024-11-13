@@ -1,7 +1,6 @@
 package dev.rogacki.ai_devs.external;
 
 import dev.rogacki.ai_devs.dto.Answer;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.ParameterizedTypeReference;
@@ -13,21 +12,15 @@ import java.util.Map;
 
 @Component
 @Slf4j
-public class TaskClient {
+public class CentralaClient implements Client {
 
     private final RestClient taskRestClient;
 
-    public TaskClient(@Qualifier("tasksClient") RestClient taskRestClient) { // TODO try to lombokize it
+    public CentralaClient(@Qualifier("centralaReportClient") RestClient taskRestClient) {
         this.taskRestClient = taskRestClient;
     }
 
-    public String getData() {
-        return taskRestClient.get()
-            .uri("/dane.txt")
-            .retrieve()
-            .body(String.class);
-    }
-
+    @Override
     public ResponseEntity<Map<String, String>> postAnswer(Answer answer) {
         ResponseEntity<Map<String, String>> entity = taskRestClient.post()
             .uri("/verify")
@@ -35,9 +28,7 @@ public class TaskClient {
             .retrieve()
             .toEntity(new ParameterizedTypeReference<>() {
             });
-        log.info("Answer response status code: {}", entity.getStatusCode());
-        log.info("Answer response body: {}", entity.getBody());
-        log.info("Answer response headers: {}", entity.getHeaders());
+        logResponse(entity);
         return entity;
     }
 }

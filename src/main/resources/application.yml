@@ -8,6 +8,12 @@ langchain4j:
   open-ai:
     chat-model:
       api-key: ${OPENAI_API_KEY}
-      model-name: gpt-4o-mini
+      model-name: gpt-4o
       log-requests: true
       log-responses: true
+logging:
+  level:
+    dev:
+      langchain4j: DEBUG
+      ai4j:
+        openai4j: DEBUG

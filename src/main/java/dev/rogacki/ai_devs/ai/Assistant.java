@@ -1,7 +1,11 @@
 package dev.rogacki.ai_devs.ai;
 
 import dev.langchain4j.service.SystemMessage;
+import dev.langchain4j.service.UserMessage;
+import dev.langchain4j.service.V;
 import dev.langchain4j.service.spring.AiService;
+
+import java.util.List;
 
 @AiService
 public interface Assistant {
@@ -20,4 +24,24 @@ public interface Assistant {
         Answer super briefly - if it's possible in just one word
         """)
     String verify(String userMessage);
+
+    @SystemMessage("""
+        Zamień dane osobowe na słowo CENZURA - tylko słowa, interpunkcja ma pozostać taka sama. 
+        Odpowiedz tylko podmienionym tekstem. 
+        W przypadku ciągu danych osobowych podmień to tylko jednym słowem- np:
+        Tożsamość podejrzanego: Michał Wiśniewski. Mieszka we Wrocławiu na ul. Słonecznej 20. Wiek: 30 lat.
+        Tożsamość podejrzanego: CENZURA. Mieszka we CENZURA na ul. CENZURA. Wiek: CENZURA lat.
+        """)
+    String censor(String userMessage);
+
+    @SystemMessage("""
+        Jesteś asystentem AI. Poniżej znajduje się kontekst w postaci paru wypowiedzi na temat jednej osoby.
+        Następnie użytkownik pytanie dotyczące tej osoby.
+        Udziel precyzyjnej odpowiedzi, wykorzystując zarówno dostarczony kontekst, jak i swoją wewnętrzną wiedzę.
+        Jeśli Twoja wewnętrzna wiedza jest sprzeczna z dostarczonym kontekstem, priorytet ma kontekst dostarczony przez użytkownika.
+        Opis po kolei swój proces wnioskowania odpowiedzi.
+        
+        {{context}}
+        """)
+    String interrogation(@V("context")List<String> context, @UserMessage String message);
 }
