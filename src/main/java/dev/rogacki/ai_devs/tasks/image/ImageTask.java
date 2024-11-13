@@ -7,7 +7,6 @@ import dev.langchain4j.model.openai.OpenAiImageModel;
 import dev.langchain4j.model.output.Response;
 import dev.rogacki.ai_devs.dto.Answer;
 import dev.rogacki.ai_devs.external.CentralaClient;
-import dev.rogacki.ai_devs.external.TaskClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
