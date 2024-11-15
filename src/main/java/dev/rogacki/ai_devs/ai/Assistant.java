@@ -4,6 +4,7 @@ import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
 import dev.langchain4j.service.V;
 import dev.langchain4j.service.spring.AiService;
+import dev.rogacki.ai_devs.tasks.category.Category;
 
 import java.util.List;
 
@@ -44,4 +45,11 @@ public interface Assistant {
         {{context}}
         """)
     String interrogation(@V("context")List<String> context, @UserMessage String message);
+
+    @SystemMessage("""
+        Basing on below text categorize what type of existence was reported.
+        Possible types are: "PERSON" or "HARDWARE" - nothing else. Return category name and nothing else- just one word.
+        In case it doesn't apply to both of these categories return NONE.
+        """)
+    Category categorize(String message);
 }
