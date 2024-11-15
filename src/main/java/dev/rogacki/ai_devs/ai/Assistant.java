@@ -47,9 +47,13 @@ public interface Assistant {
     String interrogation(@V("context")List<String> context, @UserMessage String message);
 
     @SystemMessage("""
-        Basing on below text categorize what type of existence was reported.
+        Basing on below text categorize what it to one of two categories.
+        PERSON is only for reporting existence of people - only if the existence is positive.
+        HARDWARE is for hardware faults only.
         Possible types are: "PERSON" or "HARDWARE" - nothing else. Return category name and nothing else- just one word.
         In case it doesn't apply to both of these categories return NONE.
+        Remember, updates are not about hardware.
+        If it is about pizza, return NONE.
         """)
     Category categorize(String message);
 }
