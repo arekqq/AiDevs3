@@ -29,7 +29,7 @@ public class CategoryTask implements Runnable {
     @Value("${AIDEVS_API_KEY}")
     public String aidevsApiKey;
 
-    @Value("${ABS_FILES_PATH}")
+    @Value("${ABS_FILE_PATH}")
     public String absPath;
 
     public static final String PATHNAME = "pliki_z_fabryki";

@@ -56,4 +56,13 @@ public interface Assistant {
         If it is about pizza, return NONE.
         """)
     Category categorize(String message);
+
+    @SystemMessage("""
+        Na podstawie kontekstu poniżej, wygeneruj listę słów kluczowych (metadanych na temat danego raportu
+        z wiadomości użytkownika. Odpowiedź zwróć w postaci słów w mianowniku oddzielonych przecinkiem.
+        Jeśli ktoś zna języki programowania, umieść je w metadanych.
+        Jako metadane dołącz także nazwę sektora na podstawie nazwy pliku: {{fileName}} - np. 2024-11-12_report-07-sektor_C4.txt to "Sektor C4"
+        {{context}}
+        """)
+    String generateKeywords(@V("context") String context, @V("fileName") String fileName, @UserMessage String reportText);
 }
