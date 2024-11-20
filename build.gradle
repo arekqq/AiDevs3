@@ -27,10 +27,12 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'dev.langchain4j:langchain4j-open-ai-spring-boot-starter:0.35.0'
-	implementation 'dev.langchain4j:langchain4j-spring-boot-starter:0.35.0'
+	implementation 'dev.langchain4j:langchain4j-open-ai-spring-boot-starter:0.36.1'
+	implementation 'dev.langchain4j:langchain4j-spring-boot-starter:0.36.1'
 	implementation 'org.jsoup:jsoup:1.18.1'
 	implementation 'me.paulschwarz:spring-dotenv:4.0.0'
+	implementation 'dev.langchain4j:langchain4j-embeddings-all-minilm-l6-v2:0.36.1'
+	implementation 'dev.langchain4j:langchain4j-embeddings:0.36.1'
 
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'

@@ -5,7 +5,6 @@ import dev.langchain4j.data.message.UserMessage;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.openai.OpenAiChatModel;
 import dev.rogacki.ai_devs.ai.Assistant;
-import dev.rogacki.ai_devs.dto.Answer;
 import dev.rogacki.ai_devs.external.CentralaClient;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -37,9 +36,6 @@ public class DocumentsTask implements Runnable {
     private final Assistant assistant;
     private final CentralaClient centralaClient;
 
-    @Value("${AIDEVS_API_KEY}")
-    public String aidevsApiKey;
-
     @Value("${OPENAI_API_KEY}")
     public String openAiApiKey;
 
@@ -69,8 +65,7 @@ public class DocumentsTask implements Runnable {
     public void run() {
         Map<String, String> filesAndKeywords = processFilesInDirectory();
         log.info(filesAndKeywords.toString());
-        Answer answer = new Answer("dokumenty", aidevsApiKey, filesAndKeywords);
-        centralaClient.postAnswer(answer);
+        centralaClient.postAnswer("dokumenty", filesAndKeywords);
     }
 
     private Map<String, String> processFilesInDirectory() {

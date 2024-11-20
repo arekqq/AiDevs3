@@ -1,7 +1,6 @@
 package dev.rogacki.ai_devs.tasks.cenzura;
 
 import dev.rogacki.ai_devs.ai.Assistant;
-import dev.rogacki.ai_devs.dto.Answer;
 import dev.rogacki.ai_devs.external.CentralaClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,9 +17,6 @@ import org.springframework.web.client.RestClient;
         @Value("${CENZURA_TASK_URL}")
         public String cenzuraTaskUrl;
 
-        @Value("${AIDEVS_API_KEY}")
-        public String apiKey;
-
         private final CentralaClient centralaClient;
         private final Assistant assistant;
 
@@ -32,8 +28,7 @@ import org.springframework.web.client.RestClient;
         log.info(response.getBody());
         String censor = assistant.censor(response.getBody());
         log.info(censor);
-        Answer answer = new Answer("CENZURA", apiKey, censor);
 
-        centralaClient.postAnswer(answer);
+        centralaClient.postAnswer("CENZURA", censor);
     }
 }

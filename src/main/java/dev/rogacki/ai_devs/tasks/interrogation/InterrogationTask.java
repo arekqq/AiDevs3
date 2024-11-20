@@ -2,7 +2,6 @@ package dev.rogacki.ai_devs.tasks.interrogation;
 
 
 import dev.rogacki.ai_devs.ai.Assistant;
-import dev.rogacki.ai_devs.dto.Answer;
 import dev.rogacki.ai_devs.external.CentralaClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,8 +23,6 @@ public class InterrogationTask implements Runnable {
 
     @Value("${INTERROGATIONS_PATH}")
     public String interrogationsPath;
-    @Value("${AIDEVS_API_KEY}")
-    private String apiKey;
 
     private final Assistant assistant;
     private final CentralaClient centralaClient;
@@ -39,7 +36,7 @@ public class InterrogationTask implements Runnable {
         List<String> strings = readTxtFiles();
         log.info(strings.toString());
         String response = assistant.interrogation(strings, QUESTION);
-        centralaClient.postAnswer(new Answer("mp3", apiKey, response));
+        centralaClient.postAnswer("mp3", response);
     }
 
     public List<String> readTxtFiles() {

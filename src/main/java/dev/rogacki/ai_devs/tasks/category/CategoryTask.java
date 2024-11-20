@@ -1,7 +1,6 @@
 package dev.rogacki.ai_devs.tasks.category;
 
 import dev.rogacki.ai_devs.ai.Assistant;
-import dev.rogacki.ai_devs.dto.Answer;
 import dev.rogacki.ai_devs.external.CentralaClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -47,8 +46,7 @@ public class CategoryTask implements Runnable {
     public void run() {
         Categories categories = processFilesInDirectory();
         log.info(categories.toString());
-        Answer answer = new Answer("kategorie", aidevsApiKey, categories);
-        centralaClient.postAnswer(answer);
+        centralaClient.postAnswer("kategorie", categories);
     }
 
     private Categories processFilesInDirectory() {

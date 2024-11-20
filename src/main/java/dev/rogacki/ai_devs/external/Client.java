@@ -1,6 +1,5 @@
 package dev.rogacki.ai_devs.external;
 
-import dev.rogacki.ai_devs.dto.Answer;
 import org.slf4j.Logger;
 import org.springframework.http.ResponseEntity;
 
@@ -8,7 +7,7 @@ import java.util.Map;
 
 public interface Client {
 
-    ResponseEntity<Map<String, String>> postAnswer(Answer answer);
+    ResponseEntity<Map<String, String>> postAnswer(String taskName, Object answerObject);
 
     default void logResponse(ResponseEntity<Map<String, String>> entity) {
         Logger log = org. slf4j. LoggerFactory. getLogger(Client.class);
