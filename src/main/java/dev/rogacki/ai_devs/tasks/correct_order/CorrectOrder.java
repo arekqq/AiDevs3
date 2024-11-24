@@ -18,7 +18,7 @@ public class CorrectOrder implements Runnable {
     @Override
     public void run() {
         ApiDbRequest apiDbRequest = new ApiDbRequest("select * from correct_order");
-        String concatenatedLetters = centralaClient.queryApiDb(apiDbRequest).reply().stream()
+        String concatenatedLetters = centralaClient.getCorrectOrder(apiDbRequest).reply().stream()
             .sorted(Comparator.comparingInt(Order::weight))
             .map(Order::letter)
             .collect(Collectors.joining());

@@ -1,5 +1,6 @@
 package dev.rogacki.ai_devs.tasks.correct_order;
 
+import dev.rogacki.ai_devs.tasks.database_task.ApiDbProperties;
 import lombok.Builder;
 
 @Builder
@@ -10,6 +11,6 @@ public record ApiDbRequest(
 ) {
 
     public ApiDbRequest(String query) {
-        this("database", System.getenv("AIDEVS_API_KEY"), query);
+        this("database", ApiDbProperties.getApiKey(), query);
     }
 }

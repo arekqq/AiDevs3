@@ -39,11 +39,27 @@ public class CentralaClient implements Client {
         return entity;
     }
 
-    public CorrectOrderApiResponse queryApiDb(ApiDbRequest request) {
+    public CorrectOrderApiResponse getCorrectOrder(ApiDbRequest request) {
         return taskRestClient.post()
             .uri("/apidb")
             .body(request)
             .retrieve()
             .body(CorrectOrderApiResponse.class);
+    }
+
+    public <T> T queryApiDb(ApiDbRequest request, Class<T> type) {
+        return taskRestClient.post()
+            .uri("/apidb")
+            .body(request)
+            .retrieve()
+            .body(type);
+    }
+
+    public <T> T queryApiDb(ApiDbRequest request, ParameterizedTypeReference<T> type) {
+        return taskRestClient.post()
+            .uri("/apidb")
+            .body(request)
+            .retrieve()
+            .body(type);
     }
 }
