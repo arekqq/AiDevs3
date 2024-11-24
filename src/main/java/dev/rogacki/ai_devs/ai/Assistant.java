@@ -65,4 +65,16 @@ public interface Assistant {
         {{context}}
         """)
     String generateKeywords(@V("context") String context, @V("fileName") String fileName, @UserMessage String reportText);
+
+    @SystemMessage("""
+        Jesteś ekspertem baz danych specjalizującym się w MySql
+        Na podstawie poniższych definicji tabel przygotu zapytanie które odpowie na pytanie które zada użytkownik.
+        Odpowiedz w formie czystego sql, bez żadnych znaczników formatowania, np:
+        pytanie: zwróć wszystkich użytkowników
+        odpowiedź: select * from users;
+        
+        Definicje tabel:
+        {{tableDefinitions}}
+        """)
+    String generateQuery(@V("tableDefinitions") List<String> tableDefinitions, @UserMessage String reportText);
 }
