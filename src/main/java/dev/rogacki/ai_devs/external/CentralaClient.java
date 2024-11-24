@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
 import java.util.Map;
+import java.util.Set;
 
 @Component
 @Slf4j
@@ -47,7 +48,8 @@ public class CentralaClient implements Client {
             .body(CorrectOrderApiResponse.class);
     }
 
-    public <T> T queryApiDb(ApiDbRequest request, Class<T> type) {
+    public <T> T queryApiDb(String query, ParameterizedTypeReference<T> type) {
+        var request = new ApiDbRequest(query);
         return taskRestClient.post()
             .uri("/apidb")
             .body(request)
@@ -55,11 +57,37 @@ public class CentralaClient implements Client {
             .body(type);
     }
 
-    public <T> T queryApiDb(ApiDbRequest request, ParameterizedTypeReference<T> type) {
-        return taskRestClient.post()
-            .uri("/apidb")
-            .body(request)
+    public Set<String> peopleSearch(String name) {
+        var body = taskRestClient.post()
+            .uri("people")
+            .body(Map.of(
+                "apikey", apiKey,
+                "query", name))
             .retrieve()
-            .body(type);
+            .body(SearchResponse.class);
+        return Set.of(body.message.split(" "));
     }
+
+    public String retrieveNote() {
+        return taskRestClient.get()
+            .uri("/dane/barbara.txt")
+            .retrieve()
+            .body(String.class);
+    }
+
+    public Set<String> citySearch(String city) {
+        var body = taskRestClient.post()
+            .uri("places")
+            .body(Map.of(
+                "apikey", apiKey,
+                "query", city))
+            .retrieve()
+            .body(SearchResponse.class);
+        return Set.of(body.message.split(" "));
+    }
+
+    record SearchResponse(
+        String code,
+        String message
+    ) {}
 }

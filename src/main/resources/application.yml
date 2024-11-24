@@ -1,6 +1,11 @@
 spring:
   application:
     name: AiDevs3
+  neo4j:
+    uri: bolt://localhost:7687
+    authentication:
+      username: neo4j
+      password: neo4jnew
 tasks:
   baseUrl: ${AIDEVS_TASKS_URL}
   apiKey: ${AIDEVS_API_KEY}

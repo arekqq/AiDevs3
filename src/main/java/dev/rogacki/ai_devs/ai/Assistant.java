@@ -7,6 +7,7 @@ import dev.langchain4j.service.spring.AiService;
 import dev.rogacki.ai_devs.tasks.category.Category;
 
 import java.util.List;
+import java.util.Set;
 
 @AiService
 public interface Assistant {
@@ -77,4 +78,14 @@ public interface Assistant {
         {{tableDefinitions}}
         """)
     String generateQuery(@V("tableDefinitions") List<String> tableDefinitions, @UserMessage String reportText);
+
+    @SystemMessage("""
+        Zwróć z poniższej notatki tylko imiona w formie mianownika, pisane dużymi literami.
+        Polskie znaki zamien na ich odpowiedniki- np. Ł to L, Ą to A itp.
+        Pomiń imię Barbara
+        Np:
+        Input: Jan z marią i Rafałem poszli na spacer.
+        Output: JAN,MARIA,RAFAL
+        """)
+    Set<String> getNames(String barbaraNote);
 }
