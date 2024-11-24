@@ -25,9 +25,6 @@ public class CategoryTask implements Runnable {
     private final Assistant assistant;
     private final CentralaClient centralaClient;
 
-    @Value("${AIDEVS_API_KEY}")
-    public String aidevsApiKey;
-
     @Value("${ABS_FILE_PATH}")
     public String absPath;
 

@@ -1,6 +1,8 @@
 package dev.rogacki.ai_devs.external;
 
 import dev.rogacki.ai_devs.dto.Answer;
+import dev.rogacki.ai_devs.tasks.correct_order.ApiDbRequest;
+import dev.rogacki.ai_devs.tasks.correct_order.CorrectOrderApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,5 +37,13 @@ public class CentralaClient implements Client {
             });
         logResponse(entity);
         return entity;
+    }
+
+    public CorrectOrderApiResponse queryApiDb(ApiDbRequest request) {
+        return taskRestClient.post()
+            .uri("/apidb")
+            .body(request)
+            .retrieve()
+            .body(CorrectOrderApiResponse.class);
     }
 }
