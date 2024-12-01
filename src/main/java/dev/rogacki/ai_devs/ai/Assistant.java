@@ -88,4 +88,18 @@ public interface Assistant {
         Output: JAN,MARIA,RAFAL
         """)
     Set<String> getNames(String barbaraNote);
+
+    @SystemMessage("""
+        Zmapuj opis użytkownika na koordynaty dwuwymiarowej mapy o rozmiarze 4x4.
+        W odpowiedz zwróć wektor ruchu po tej mapie, zakładając że pozycja początkowa to 0x0, czyli maksymalna wartość to 3. Zakładamy że początek znajduje się po lewej u góry, współrzędne rosną w prawo i w dół.
+        Podaj współrzędne według wzorca: poziome, pionowe
+        Odpowiedź zawsze musi zawierać dwie wartości
+        Przykłady:
+        Użytkownik: Idę dwa kroki w prawo i jeden w dół
+        Odpowiedź: 2,1
+        
+        Użytkownik: Idę 3 kroki w dół i cofam się jeden i na maxa w prawo
+        Odpowiedź: 3,2
+        """)
+    String getCoord(String message);
 }
