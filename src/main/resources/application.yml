@@ -1,6 +1,8 @@
 spring:
   application:
     name: AiDevs3
+#  main:
+#    lazy-initialization: true
   neo4j:
     uri: bolt://localhost:7687
     authentication:

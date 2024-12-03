@@ -39,3 +39,4 @@ out/
 .env
 
 pliki_z_fabryki
+/src/main/resources/files

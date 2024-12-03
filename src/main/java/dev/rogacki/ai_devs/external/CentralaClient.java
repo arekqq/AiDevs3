@@ -30,6 +30,7 @@ public class CentralaClient implements Client {
     @Override
     public ResponseEntity<Map<String, String>> postAnswer(String taskName, Object answerObject) {
         var answer = new Answer(taskName, apiKey, answerObject);
+        log.info("Sending answer: {}", answer);
         ResponseEntity<Map<String, String>> entity = taskRestClient.post()
             .uri("/verify")
             .body(answer)
@@ -84,6 +85,16 @@ public class CentralaClient implements Client {
             .retrieve()
             .body(SearchResponse.class);
         return Set.of(body.message.split(" "));
+    }
+
+    public Map<String, String> getNotesQuestions() {
+        return taskRestClient.get()
+            .uri(uriBuilder -> uriBuilder
+                .path("/data/{apiKey}/notes.json")
+                .build(apiKey))
+            .retrieve()
+            .body(new ParameterizedTypeReference<>() {
+            });
     }
 
     record SearchResponse(

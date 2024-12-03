@@ -102,4 +102,11 @@ public interface Assistant {
         Odpowiedź: 3,2
         """)
     String getCoord(String message);
+
+    @SystemMessage("""
+        Odpowiedz na pytanie używając kontesktu.
+        Kontest:
+        {{match}}
+        """)
+    String answerWithEmbedding(@UserMessage String question, @V("match") String match);
 }

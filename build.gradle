@@ -34,6 +34,8 @@ dependencies {
 	implementation 'dev.langchain4j:langchain4j-embeddings-all-minilm-l6-v2:0.36.1'
 	implementation 'dev.langchain4j:langchain4j-embeddings:0.36.1'
 	implementation 'org.springframework.boot:spring-boot-starter-data-neo4j:3.4.0'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux:3.4.0'
+	implementation 'com.algolia:algoliasearch:4.8.2'
 
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
