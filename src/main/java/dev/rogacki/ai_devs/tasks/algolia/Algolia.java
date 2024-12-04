@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
@@ -16,6 +17,13 @@ import java.util.List;
 @Slf4j
 @Component
 public class Algolia implements Runnable {
+
+    @Value("${ALGOLIA_APP_ID}")
+    public String algoliaAppId;
+
+    @Value("${ALGOLIA_API_KEY}")
+    public String algoliaApiKey;
+
     @SneakyThrows
     @Override
     public void run() {
@@ -23,12 +31,12 @@ public class Algolia implements Runnable {
         URL url = new URI("https://dashboard.algolia.com/sample_datasets/movie.json").toURL();
         InputStream stream = url.openStream();
         ObjectMapper mapper = new ObjectMapper();
-        List<JsonNode> movies = mapper.readValue(stream, new TypeReference<List<JsonNode>>() {
+        List<JsonNode> movies = mapper.readValue(stream, new TypeReference<>() {
         });
         stream.close();
 
         // Connect and authenticate with your Algolia app
-        SearchClient client = new SearchClient("DVIV2N0MKG", "fec1565c6c087f8f1af93b8c7e7b8ff1");
+        SearchClient client = new SearchClient(algoliaAppId, algoliaApiKey);
 
         // Save records in Algolia index
         client.saveObjects("movies_index", movies);
